@@ -4,7 +4,7 @@
 apt update
 apt install -y sudo curl htop qemu-guest-agent nano git iftop iotop net-tools speedtest-cli iperf3
 
-# Prompt to add user to sudo
+# Prompt to add user to sudoers
 read -p "Add sudoer: " username
 if [ -n "$username" ]; then
     sudo adduser "$username" sudo
