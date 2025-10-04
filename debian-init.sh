@@ -8,8 +8,8 @@ DEBIAN_FRONTEND=noninteractive apt install -y \
   qemu-guest-agent \
   nano \
   git \
-  iftop \   # network bandwidth
-  iotop \   # disk i/o
+  iftop \
+  iotop \
   net-tools \
   speedtest-cli \
   iperf3
