@@ -1,7 +1,9 @@
 # Bootstrapping
 
 ## k3s node on Debian
-- `bash -c "$(wget -O - https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/debian-init.sh)"`
+```
+bash -c "$(wget -O - https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/debian-init.sh)"
+```
 
 ## Flux
 ```
