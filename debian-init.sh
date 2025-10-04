@@ -45,5 +45,8 @@ curl -L -O https://github.com/derailed/k9s/releases/latest/download/k9s_linux_am
 # Point KUBECONFIG to the k3s kubeconfig if KUBECONFIG isn't already set
 grep -q '^KUBECONFIG=' /etc/environment || echo "KUBECONFIG=/etc/rancher/k3s/k3s.yaml" | sudo tee -a /etc/environment > /dev/null
 
+# Rename context
+kubectl config rename-context default $TLS_SAN
+
 # Reboot
 sudo reboot
