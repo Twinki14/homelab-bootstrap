@@ -1,19 +1,24 @@
-#!/bin/sh
+#!/bin/bash
+
+# Tools
 apt update
-apt install htop -y
-apt install qemu-guest-agent -y
-apt install nano -y
-apt install git -y
-apt install iftop -y # network bandwidth
-apt install iotop -y # disk i/o
-apt install net-tools -y
-apt install speedtest-cli -y
-DEBIAN_FRONTEND=noninteractive apt install iperf3 -y
+DEBIAN_FRONTEND=noninteractive apt install -y \
+  curl \
+  htop \
+  qemu-guest-agent \
+  nano \
+  git \
+  iftop \   # network bandwidth
+  iotop \   # disk i/o
+  net-tools \
+  speedtest-cli \
+  iperf3
 
 # Configure tls hostname cert
 read -p "Enter TLS SAN (IP or hostname, eg k3s.den): " TLS_SAN
 
 # Init /etc/rancher/k3s/config.yaml from source
+mkdir -p /etc/rancher/k3s
 wget https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/k3s/config.yaml --force-directories -O /etc/rancher/k3s/config.yaml
 sed -i "s|<hostname>|$TLS_SAN|g" /etc/rancher/k3s/config.yaml
 
