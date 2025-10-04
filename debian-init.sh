@@ -20,7 +20,8 @@ echo "/etc/hosts:"
 cat /etc/hosts
 echo
 echo "-> Adjust /etc/hostname and update /etc/hosts accordingly if desired"
-echo
+read -p "-> Continue? (y/n): " choice
+[ "$choice" != "y" ] && exit 0
 
 # Configure k3s tls hostname cert
 read -p "k3s TLS SAN (IP or hostname, eg k3s.den): " TLS_SAN

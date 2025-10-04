@@ -1,7 +1,7 @@
 # Bootstrapping
 
 ## k3s node on Debian
-```
+```bash
 bash -c "$(wget -O - https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/debian-init.sh)"
 ```
 
@@ -10,17 +10,16 @@ bash -c "$(wget -O - https://raw.githubusercontent.com/Twinki14/homelab-bootstra
 2. Adjust GRUB timeout to reduce boot time `GRUB_TIMEOUT=1`
 
 ## Flux
-```
-export GITHUB_TOKEN=<github pat with repo scope>
-```
-
 ```bash
+gh auth login
+export GITHUB_TOKEN=$(gh auth token)
 flux bootstrap github \
   --components-extra=image-reflector-controller,image-automation-controller \
   --token-auth \
   --owner=Twinki14 \
-  --repository=CozyLab \
+  --repository=homelab-public \
   --branch=main \
   --path=flux/ \
-  --personal
+  --personal \
+  --interval 15s
 ```
