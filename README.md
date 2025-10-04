@@ -1,7 +1,7 @@
 # Bootstrapping
 
 ## k3s node on Debian
-- `su -c "curl -fsSL https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/debian-init.sh | bash"`
+- `wget -qO- https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/debian-init.sh | bash`
 
 ## Flux
 ```
