@@ -1,0 +1,5 @@
+write-kubeconfig-mode: 777
+disable:
+- traefik
+tls-san:
+- '<hostname>'
