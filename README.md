@@ -7,7 +7,7 @@ bash -c "$(wget -O - https://raw.githubusercontent.com/Twinki14/homelab-bootstra
 
 ## Common Debian adjustments on Proxmox
 1. Adjust GRUB terminal for xtermjs `GRUB_CMDLINE_LINUX_DEFAULT="quiet console=tty0 console=ttyS0,115200"`
-2. Reduce GRUB timeout to reduce boot time `GRUB_TIMEOUT=1`
+2. Adjust GRUB timeout to reduce boot time `GRUB_TIMEOUT=1`
 
 ## Flux
 ```
