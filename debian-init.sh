@@ -21,7 +21,7 @@ sed -i "s|<hostname>|$TLS_SAN|g" /etc/rancher/k3s/config.yaml
 curl -sfL https://get.k3s.io | sh
 
 # Install flux cli
-curl -s https://fluxcd.io/install.sh | sudo bash
+curl -sfL https://fluxcd.io/install.sh | bash
 
 # Reboot
 reboot
