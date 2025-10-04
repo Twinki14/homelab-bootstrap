@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Tools
+# Install tools
 apt update
 apt install -y sudo curl htop qemu-guest-agent nano git iftop iotop net-tools speedtest-cli iperf3 gh
 
@@ -35,6 +35,14 @@ curl -sfL https://get.k3s.io | sh
 
 # Install flux cli
 curl -sfL https://fluxcd.io/install.sh | bash
+
+# Install k9s
+curl -L -O https://github.com/derailed/k9s/releases/latest/download/k9s_linux_amd64.deb \
+  && sudo dpkg -i k9s_linux_amd64.deb \
+  && rm k9s_linux_amd64.deb
+
+# Point KUBECONFIG to the k3s kubeconfig if KUBECONFIG isn't already set
+grep -q '^KUBECONFIG=' /etc/environment || echo "KUBECONFIG=/etc/rancher/k3s/k3s.yaml" | sudo tee -a /etc/environment > /dev/null
 
 # Reboot
 sudo reboot
