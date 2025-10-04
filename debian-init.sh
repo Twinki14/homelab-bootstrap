@@ -45,8 +45,11 @@ curl -L -O https://github.com/derailed/k9s/releases/latest/download/k9s_linux_am
 # Point KUBECONFIG to the k3s kubeconfig if KUBECONFIG isn't already set
 grep -q '^KUBECONFIG=' /etc/environment || echo "KUBECONFIG=/etc/rancher/k3s/k3s.yaml" | sudo tee -a /etc/environment > /dev/null
 
-# Rename context
-kubectl config rename-context default $TLS_SAN
+# System-wide kubectl -> k alias
+if ! grep -q "alias k='kubectl'" /etc/profile.d/kubectl-alias.sh 2>/dev/null; then
+  echo "alias k='kubectl'" | sudo tee /etc/profile.d/kubectl-alias.sh > /dev/null
+  sudo chmod +x /etc/profile.d/kubectl-alias.sh
+fi
 
 # Reboot
 sudo reboot
