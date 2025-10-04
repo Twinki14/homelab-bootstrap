@@ -4,6 +4,12 @@
 apt update
 apt install -y sudo curl htop qemu-guest-agent nano git iftop iotop net-tools speedtest-cli iperf3
 
+# Prompt to add user to sudo
+read -p "Add sudoer: " username
+if [ -n "$username" ]; then
+    sudo adduser "$username" sudo
+fi
+
 # Prompt current hosts/hostname
 echo "-> Current /etc/hostname & /etc/hosts"
 echo
@@ -17,7 +23,7 @@ echo "-> Adjust /etc/hostname and update /etc/hosts accordingly if desired"
 echo
 
 # Configure k3s tls hostname cert
-read -p "Enter k3s TLS SAN (IP or hostname, eg k3s.den): " TLS_SAN
+read -p "k3s TLS SAN (IP or hostname, eg k3s.den): " TLS_SAN
 
 # Init /etc/rancher/k3s/config.yaml from source
 mkdir -p /etc/rancher/k3s
