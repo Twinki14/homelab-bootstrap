@@ -3,9 +3,14 @@
 # Add main contrib, for zfs
 sudo sed -i '/main/ {/contrib/! s/main /main contrib /}' /etc/apt/sources.list
 
-# Install tools
+# Install sudo & zfs
 apt update
-apt install -y sudo nfs-common zfsutils-linux curl htop qemu-guest-agent nano git iftop iotop net-tools speedtest-cli iperf3 gh
+apt install sudo
+sudo apt install -y build-essential dkms linux-headers-$(uname -r) curl gnupg
+sudo apt install zfs-dkms zfs-initramfs zfsutils-linux
+
+# Install tools
+sudo apt install -y nfs-common curl htop qemu-guest-agent nano git iftop iotop net-tools speedtest-cli iperf3 gh
 
 # Prompt to add user to sudoers
 read -p "Add sudoer: " username
