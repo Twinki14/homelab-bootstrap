@@ -2,7 +2,7 @@
 
 # Install tools
 apt update
-apt install -y sudo curl htop qemu-guest-agent nano git iftop iotop net-tools speedtest-cli iperf3 gh
+apt install -y sudo nfs-common curl htop qemu-guest-agent nano git iftop iotop net-tools speedtest-cli iperf3 gh
 
 # Prompt to add user to sudoers
 read -p "Add sudoer: " username
