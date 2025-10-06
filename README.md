@@ -23,6 +23,37 @@ sudo fdisk -l /dev/sdb # verify new disk size
 sudo zpool online -e tank /dev/sdb
 ```
 
+## Flux `requeue-dependency`
+Several flux controllers have a long default 30s requeue dependency time, in a homelab non-production environment it can be much lower
+```yaml
+patches:
+- patch: |
+    - op: add
+      path: /spec/template/spec/containers/0/args/-
+      value: --requeue-dependency=5s
+  target:
+    kind: Deployment
+    name: "(kustomize-controller|source-controller|helm-controller)"
+```
+needs to be added to a the flux kustomization under flux-system
+
+```yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- gotk-components.yaml
+- gotk-sync.yaml
+patches:
+- patch: |
+    - op: add
+      path: /spec/template/spec/containers/0/args/-
+      value: --requeue-dependency=5s
+  target:
+    kind: Deployment
+    name: "(kustomize-controller|source-controller|helm-controller)"
+```
+
+
 ## Flux bootstrapping
 ```bash
 gh auth login
