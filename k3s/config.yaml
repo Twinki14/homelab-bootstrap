@@ -1,5 +1,18 @@
 write-kubeconfig-mode: 777
 disable:
+- servicelb
+- local-storage
 - traefik
 tls-san:
 - '<hostname>'
+secrets-encryption: true
+kube-apiserver-arg:
+- 'audit-log-maxage=30'
+- 'audit-log-maxbackup=10'
+- 'audit-log-maxsize=100'
+- 'service-account-extend-token-expiration=false'
+kube-controller-manager-arg:
+- 'terminated-pod-gc-threshold=100'
+kubelet-arg:
+- 'streaming-connection-idle-timeout=5m'
+- "tls-cipher-suites=TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305"

@@ -68,3 +68,15 @@ flux bootstrap github \
   --personal \
   --interval 15s
 ```
+
+## General notes
+
+### Shrinking PvE volumes
+1. First resize the partitions using something like GParted
+   1. Note any unallocated partitions that come after any GPT (extended) partitions
+2. Use `lvdisplay` to find VM volumes
+3. Use `lvreduce` or `lvextend`
+   1. `lvreduce -L 5G /dev/pve/disk-name` reduce TO 5G
+   2. `lvreduce -L -5G /dev/pve/disk-name` reduce BY 5G
+   3. Can also use `0.1M` or `+5M`
+4. Use `qm rescan` which will adjust the VM conf
