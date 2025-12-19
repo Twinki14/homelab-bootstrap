@@ -1,7 +1,8 @@
 [Unit]
 Description=Kill containerd-shims on shutdown
 DefaultDependencies=false
-After=k3s-drain.service
+Requires=shutdown-k3s-drain.service
+After=shutdown-k3s-drain.service
 Before=shutdown.target umount.target
 
 [Service]
