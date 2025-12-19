@@ -59,8 +59,11 @@ if ! grep -q "alias k='kubectl'" /etc/profile.d/kubectl-alias.sh 2>/dev/null; th
   sudo chmod +x /etc/profile.d/kubectl-alias.sh
 fi
 
-# Add safer systemd shutdown sequences
+# Add a drain script
 sudo wget https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/k3s/systemd/k3s-drain.sh --force-directories -O /usr/local/bin/k3s-drain.sh
+sudo chmod +x /usr/local/bin/k3s-drain.sh
+
+# Add & Enable safer systemd shutdown sequences
 sudo wget https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/k3s/systemd/drain-k3s.service --force-directories -O /etc/systemd/system/drain-k3s.service
 sudo wget https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/k3s/systemd/killall-k3s.service --force-directories -O /etc/systemd/system/killall-k3s.service
 
