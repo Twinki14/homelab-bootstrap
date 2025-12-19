@@ -6,7 +6,7 @@ Before=shutdown.target umount.target
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash -c "/usr/local/bin/k3s-killall.sh"
+ExecStart=/usr/local/bin/k3s-killall.sh
 
 [Install]
 WantedBy=shutdown.target

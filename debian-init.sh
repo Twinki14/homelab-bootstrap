@@ -64,12 +64,11 @@ sudo wget https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/k3s/
 sudo chmod +x /usr/local/bin/k3s-drain.sh
 
 # Add & Enable safer systemd shutdown sequences
-sudo wget https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/k3s/systemd/drain-k3s.service --force-directories -O /etc/systemd/system/drain-k3s.service
-sudo wget https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/k3s/systemd/killall-k3s.service --force-directories -O /etc/systemd/system/killall-k3s.service
+sudo wget https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/k3s/systemd/shutdown-k3s-drain.service --force-directories -O /etc/systemd/system/shutdown-k3s-drain.service
+sudo wget https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/k3s/systemd/shutdown-k3s.service --force-directories -O /etc/systemd/system/shutdown-k3s.service
 
 systemctl daemon-reload
-systemctl enable drain-k3s.service
-systemctl enable killall-k3s.service
+systemctl enable shutdown-k3s-drain.service shutdown-k3s.service
 
 # Reboot
 sudo reboot
