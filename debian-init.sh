@@ -59,10 +59,9 @@ if ! grep -q "alias k='kubectl'" /etc/profile.d/kubectl-alias.sh 2>/dev/null; th
   sudo chmod +x /etc/profile.d/kubectl-alias.sh
 fi
 
-NODE_NAME=$(hostname)
-
 # Add k3s-shutdown.service for graceful node draining
-sudo wget https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/k3s/systemd/k3s-shutdown.service --force-directories -O /etc/systemd/system/k3s-shutdown.service
+NODE_NAME=$(hostname)
+sudo wget https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/k3s/systemd/k3s-shutdown.service --force-directories -O /etc/systemd/system/k3s-shutdown@.service
 systemctl daemon-reload
 systemctl enable k3s-shutdown@$NODE_NAME.service
 
