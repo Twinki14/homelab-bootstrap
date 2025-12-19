@@ -7,7 +7,8 @@ After=k3s.service
 Type=simple
 ExecStartPre=/usr/local/bin/kubectl uncordon %i
 ExecStart=/bin/sleep inf
-ExecStop=/usr/local/bin/kubectl drain %i --ignore-daemonsets --delete-emptydir-data
+ExecStop=/usr/local/bin/kubectl drain %i --ignore-daemonsets --delete-emptydir-data --force --grace-period=60 --timeout=240s
+TimeoutStopSec=300
 
 [Install]
 WantedBy=k3s.service
