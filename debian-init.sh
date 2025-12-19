@@ -10,7 +10,7 @@ sudo apt install -y build-essential dkms linux-headers-$(uname -r) curl gnupg
 sudo apt install zfs-dkms zfs-initramfs zfsutils-linux
 
 # Install tools
-sudo apt install -y nfs-common curl htop qemu-guest-agent nano git iftop iotop net-tools speedtest-cli iperf3 gh
+sudo apt install -y nfs-common curl htop qemu-guest-agent nano git iftop iotop net-tools speedtest-cli iperf3 gh nvme-cli rsync
 
 # Prompt to add user to sudoers
 read -p "Add sudoer: " username
@@ -58,6 +58,15 @@ if ! grep -q "alias k='kubectl'" /etc/profile.d/kubectl-alias.sh 2>/dev/null; th
   echo "alias k='kubectl'" | sudo tee /etc/profile.d/kubectl-alias.sh > /dev/null
   sudo chmod +x /etc/profile.d/kubectl-alias.sh
 fi
+
+# Add safer systemd shutdown sequences
+sudo wget https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/k3s/systemd/k3s-drain.sh --force-directories -O /usr/local/bin/k3s-drain.sh
+sudo wget https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/k3s/systemd/drain-k3s.service --force-directories -O /etc/systemd/system/drain-k3s.service
+sudo wget https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/k3s/systemd/killall-k3s.service --force-directories -O /etc/systemd/system/killall-k3s.service
+
+systemctl daemon-reload
+systemctl enable drain-k3s.service
+systemctl enable killall-k3s.service
 
 # Reboot
 sudo reboot

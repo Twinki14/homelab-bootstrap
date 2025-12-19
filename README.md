@@ -80,3 +80,10 @@ flux bootstrap github \
    2. `lvreduce -L -5G /dev/pve/disk-name` reduce BY 5G
    3. Can also use `0.1M` or `+5M`
 4. Use `qm rescan` which will adjust the VM conf
+
+
+----
+
+zpool import -o readonly=on local-node
+
+https://www.mcgarrah.org/proxmox-remove-ceph-completely/

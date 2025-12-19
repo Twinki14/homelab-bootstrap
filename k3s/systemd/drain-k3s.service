@@ -1,0 +1,22 @@
+[Unit]
+Description=Drain k3s node on shutdown
+DefaultDependencies=false
+
+# Must run while system is still alive
+Before=shutdown.target
+
+# Network must exist, but do NOT tie to k3s.service stopping
+Wants=network-online.target
+After=network-online.target
+
+# Explicitly ignore k3s stopping
+Conflicts=shutdown.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/k3s-drain.sh
+TimeoutStartSec=300
+RemainAfterExit=yes
+
+[Install]
+WantedBy=shutdown.target
