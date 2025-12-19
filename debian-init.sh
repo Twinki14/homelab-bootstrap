@@ -18,7 +18,7 @@ if [ -n "$username" ]; then
     sudo adduser "$username" sudo
 fi
 
-# Prompt current hosts/hostname
+# Prompt current hosts/hostname/nodename
 echo "-> Current /etc/hostname & /etc/hosts"
 echo
 echo "/etc/hostname:"
@@ -59,16 +59,12 @@ if ! grep -q "alias k='kubectl'" /etc/profile.d/kubectl-alias.sh 2>/dev/null; th
   sudo chmod +x /etc/profile.d/kubectl-alias.sh
 fi
 
-# Add a drain script
-sudo wget https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/k3s/systemd/k3s-drain.sh --force-directories -O /usr/local/bin/k3s-drain.sh
-sudo chmod +x /usr/local/bin/k3s-drain.sh
+NODE_NAME=$(hostname)
 
-# Add & Enable safer systemd shutdown sequences
-sudo wget https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/k3s/systemd/shutdown-k3s-drain.service --force-directories -O /etc/systemd/system/shutdown-k3s-drain.service
-sudo wget https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/k3s/systemd/shutdown-k3s.service --force-directories -O /etc/systemd/system/shutdown-k3s.service
-
+# Add k3s-shutdown.service for graceful node draining
+sudo wget https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/k3s/systemd/k3s-shutdown.service --force-directories -O /etc/systemd/system/k3s-shutdown.service
 systemctl daemon-reload
-systemctl enable shutdown-k3s-drain.service shutdown-k3s.service
+systemctl enable k3s-shutdown@$NODE_NAME.service
 
 # Reboot
 sudo reboot

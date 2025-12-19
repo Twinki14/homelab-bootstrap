@@ -1,0 +1,13 @@
+[Unit]
+Description=k3s graceful shutdown
+BindsTo=k3s.service
+After=k3s.service
+
+[Service]
+Type=simple
+ExecStartPre=/usr/local/bin/kubectl uncordon %i
+ExecStart=/bin/sleep inf
+ExecStop=/usr/local/bin/kubectl drain %i --ignore-daemonsets --delete-emptydir-data
+
+[Install]
+WantedBy=k3s.service
