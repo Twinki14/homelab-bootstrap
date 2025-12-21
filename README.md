@@ -5,10 +5,6 @@
 bash -c "$(wget -O - https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/debian-init.sh)"
 ```
 
-## Common Debian adjustments on Proxmox
-1. Adjust GRUB terminal for xtermjs `GRUB_CMDLINE_LINUX_DEFAULT="quiet console=tty0 console=ttyS0,115200"`
-2. Adjust GRUB timeout to reduce boot time `GRUB_TIMEOUT=1`
-
 ## ZFS Pool creation
 Nodes typically use a local zfs pool for PV/PVC provisoning
 ```bash
@@ -71,7 +67,19 @@ flux bootstrap github \
 
 ## General notes
 
-### Shrinking PvE volumes
+### Common Debian adjustments on Proxmox
+1. `nano /etc/default/grub`
+2. Adjust GRUB terminal for xtermjs `GRUB_CMDLINE_LINUX_DEFAULT="console=tty0 console=ttyS0,115200"`
+3. Adjust GRUB timeout to reduce boot time `GRUB_TIMEOUT=2`
+4. `update-grub`
+
+### PvE OVMF (UEFI) BIOS
+- OVMF (UEFI) should be preferred if ever passing through PCIe devices
+- Setting `Machine` to `q35` may also be required
+- See [Migrate Proxmox VM from SeaBIOS to OVMF (UEFI)](https://gist.github.com/alimbada/2a1b9c308dfe68806d958b7c4b6461e2) for any migration needs
+- See [this old reddit guidance thread](https://www.reddit.com/r/homelab/comments/1hggz6l/an_updated_newbies_guide_to_setting_up_a_proxmox/) for Intel Arc GPU's
+
+### Shrinking PvE-attached volumes
 1. First resize the partitions using something like GParted
    1. Note any unallocated partitions that come after any GPT (extended) partitions
 2. Use `lvdisplay` to find VM volumes
