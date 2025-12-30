@@ -44,6 +44,7 @@ read -p "k3s TLS SAN (IP or hostname, eg k3s.den): " TLS_SAN
 # Init /etc/rancher/k3s/config.yaml from source
 mkdir -p /etc/rancher/k3s
 wget https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/k3s/config.yaml --force-directories -O /etc/rancher/k3s/config.yaml
+wget https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/k3s/kubelet.yaml --force-directories -O /etc/rancher/k3s/kubelet.yaml
 sed -i "s|<hostname>|$TLS_SAN|g" /etc/rancher/k3s/config.yaml
 
 # Install k3s
@@ -65,12 +66,6 @@ if ! grep -q "alias k='kubectl'" /etc/profile.d/kubectl-alias.sh 2>/dev/null; th
   echo "alias k='kubectl'" | sudo tee /etc/profile.d/kubectl-alias.sh > /dev/null
   sudo chmod +x /etc/profile.d/kubectl-alias.sh
 fi
-
-# Add k3s-shutdown.service for graceful node draining
-NODE_NAME=$(hostname)
-sudo wget https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/k3s/systemd/k3s-shutdown.service --force-directories -O /etc/systemd/system/k3s-shutdown@.service
-systemctl daemon-reload
-systemctl enable k3s-shutdown@$NODE_NAME.service
 
 # Reboot
 sudo reboot
