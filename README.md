@@ -49,7 +49,6 @@ patches:
     name: "(kustomize-controller|source-controller|helm-controller)"
 ```
 
-
 ## Flux bootstrapping
 ```bash
 gh auth login
