@@ -1,8 +1,14 @@
 # Bootstrapping
 
+## Debian
+```bash
+su
+bash -c "$(wget -O - https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/debian-init.sh)"
+```
+
 ## k3s node on Debian
 ```bash
-bash -c "$(wget -O - https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/debian-init.sh)"
+bash -c "$(wget -O - https://raw.githubusercontent.com/Twinki14/homelab-bootstrap/main/debian-k3s-init.sh)"
 ```
 
 ## ZFS Pool creation
@@ -72,6 +78,29 @@ flux bootstrap github \
 3. Adjust GRUB timeout to reduce boot time `GRUB_TIMEOUT=2`
 4. `update-grub`
 
+### NFS
+
+```bash
+mkdir /mnt/spirit-library/media
+nano /etc/fstab
+```
+
+```bash
+# spirit-library
+cozy.nas.localdns:/mnt/spirit-library/media /mnt/spirit-library/media  nfs4 rw,hard,noatime,_netdev,x-systemd.automount,timeo=600,retrans=5 0 0
+```
+
+```bash
+systemctl daemon-reload
+sudo mount -a
+```
+
+
+### Plex
+```bash
+curl -LsSf https://repo.plex.tv/scripts/setupRepo.sh | sudo bash
+```
+
 ### PvE OVMF (UEFI) BIOS
 - OVMF (UEFI) should be preferred if ever passing through PCIe devices
 - Setting `Machine` to `q35` may also be required
@@ -87,7 +116,6 @@ flux bootstrap github \
    2. `lvreduce -L -5G /dev/pve/disk-name` reduce BY 5G
    3. Can also use `0.1M` or `+5M`
 4. Use `qm rescan` which will adjust the VM conf
-
 
 ----
 
