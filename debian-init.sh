@@ -7,11 +7,17 @@ sed -i '/main/ {/contrib/! s/main /main contrib non-free non-free-firmware /}' /
 apt update
 apt install sudo
 
+# Prompt to add user to sudoers
+read -p "Add sudoer: " username
+if [ -n "$username" ]; then
+  sudo adduser "$username" sudo
+fi
+
 # Install tools
-apt install -y nfs-common curl htop qemu-guest-agent nano git iftop iotop net-tools speedtest-cli iperf3 gh nvme-cli rsync
+sudo apt install -y nfs-common curl htop qemu-guest-agent nano git iftop iotop net-tools speedtest-cli iperf3 gh nvme-cli rsync
 
 # Install dkms stuff
-apt install -y build-essential dkms linux-headers-$(uname -r) gnupg
+sudo apt install -y build-essential dkms linux-headers-$(uname -r) gnupg
 
 # Install intel-gpu related tools
 read -p "Install Intel GPU tools/drivers? (y/n): " intel
@@ -20,16 +26,9 @@ read -p "Install Intel GPU tools/drivers? (y/n): " intel
 read -p "Install ZFS? (y/n): " zfs
 
 if [ "$intel" = "y" ]; then
-  apt install -y firmware-misc-nonfree intel-media-va-driver-non-free intel-gpu-tools vainfo
+  sudo apt install -y firmware-misc-nonfree intel-media-va-driver-non-free intel-gpu-tools vainfo
 fi
 
 if [ "$zfs" = "y" ]; then
-  apt install -y zfs-dkms zfs-initramfs zfsutils-linux
+  sudo apt install -y zfs-dkms zfs-initramfs zfsutils-linux
 fi
-
-# Prompt to add user to sudoers
-read -p "Add sudoer: " username
-if [ -n "$username" ]; then
-  sudo adduser "$username" sudo
-fi
-

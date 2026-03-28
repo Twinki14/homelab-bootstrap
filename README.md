@@ -78,11 +78,17 @@ flux bootstrap github \
 3. Adjust GRUB timeout to reduce boot time `GRUB_TIMEOUT=2`
 4. `update-grub`
 
+```
+GRUB_TIMEOUT=2
+GRUB_CMDLINE_LINUX_DEFAULT="console=tty0 console=ttyS0,115200"
+GRUB_CMDLINE_LINUX=""
+```
+
 ### NFS
 
 ```bash
-mkdir /mnt/spirit-library/media
-nano /etc/fstab
+sudo mkdir -p /mnt/spirit-library/media
+sudo nano /etc/fstab
 ```
 
 ```bash
@@ -91,10 +97,9 @@ cozy.nas.localdns:/mnt/spirit-library/media /mnt/spirit-library/media  nfs4 rw,h
 ```
 
 ```bash
-systemctl daemon-reload
+sudo systemctl daemon-reload
 sudo mount -a
 ```
-
 
 ### Plex
 ```bash
