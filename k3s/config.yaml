@@ -1,4 +1,4 @@
-write-kubeconfig-mode: 777
+write-kubeconfig-mode: 644
 disable:
 - servicelb
 - local-storage
@@ -6,7 +6,9 @@ disable:
 tls-san:
 - '<hostname>'
 secrets-encryption: true
+disable-cloud-controller: true
 kube-apiserver-arg:
+- 'audit-log-path=/var/log/k3s-audit.log'
 - 'audit-log-maxage=30'
 - 'audit-log-maxbackup=10'
 - 'audit-log-maxsize=100'
