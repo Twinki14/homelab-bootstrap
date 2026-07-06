@@ -14,7 +14,7 @@ if [ -n "$username" ]; then
 fi
 
 # Install tools
-sudo apt install -y nfs-common curl htop qemu-guest-agent nano git iftop iotop net-tools speedtest-cli iperf3 gh nvme-cli rsync
+sudo apt install -y nfs-common curl btop qemu-guest-agent nano git iftop iotop net-tools speedtest-cli iperf3 gh nvme-cli rsync
 
 # Install dkms stuff
 sudo apt install -y build-essential dkms linux-headers-$(uname -r) gnupg
